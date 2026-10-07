@@ -1,0 +1,463 @@
+/* PASSAGEIROS — cartaz de viagem.
+   Fundo vinho (#3f0c0f) na maior parte, uma seção clara no meio e rodapé
+   azul-noite. Títulos em Instrument Serif, textos e números em Inter. */
+
+:root{
+  color-scheme: dark;
+
+  --vinho:    #3f0c0f;   /* fundo principal */
+  --vinho-alto:#4c1518;  /* mesmo vinho, um grau acima: cartões */
+  --amarelo:  #ffc800;   /* amarelo do logotipo */
+  --amarelo-f:#ffd84d;
+  --creme:    #f6ead6;
+  --creme-mid:rgba(246,234,214,.68);
+  --linha:    rgba(255,200,0,.26);
+  --linha-fina:rgba(246,234,214,.14);
+
+  --noite:    #0a1024;   /* azul-noite do rodapé */
+
+  --ui:      "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --titulo:  "Instrument Serif", Georgia, "Times New Roman", serif;
+  --maquina: "Courier Prime", "Courier New", monospace;
+
+  --col: 56ch;
+  --gutter: clamp(1.15rem, 5vw, 4.5rem);
+  --max: 1200px;
+}
+
+*,*::before,*::after{ box-sizing:border-box }
+
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+  scroll-padding-top:6rem;
+  background:var(--vinho);
+}
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto } }
+
+body{
+  margin:0;
+  background:var(--vinho);
+  color:var(--creme);
+  font-family:var(--ui);
+  font-size:clamp(1rem,.96rem + .2vw,1.06rem);
+  line-height:1.68;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{ max-width:100%; height:auto; display:block }
+h1,h2,h3{ margin:0; font-weight:400 }
+p,dl,ul,ol,figure,blockquote{ margin:0 }
+a{ color:var(--amarelo) }
+strong{ font-weight:600; color:var(--amarelo-f) }
+em{ font-style:italic }
+
+:where(a,button,[tabindex]):focus-visible{
+  outline:2px solid var(--amarelo);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.pular{
+  position:absolute; left:-9999px; top:0;
+  background:var(--amarelo); color:var(--vinho);
+  padding:.7rem 1.1rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.1em; font-size:.8rem;
+  text-decoration:none; z-index:99;
+}
+.pular:focus{ left:.6rem; top:.6rem }
+
+/* ---------------- peças recorrentes ---------------- */
+.wrap{
+  width:100%; max-width:var(--max);
+  margin-inline:auto; padding-inline:var(--gutter);
+}
+.col{ max-width:var(--col) }
+
+.olho{
+  font-weight:700; font-size:.74rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--amarelo);
+  display:flex; align-items:center; gap:.7rem; margin-bottom:1.1rem;
+}
+.olho::before{
+  content:""; width:1.7rem; height:2px; background:var(--amarelo); flex:none;
+}
+.olho-centro{ justify-content:center }
+
+.titulo{
+  font-family:var(--titulo); font-weight:400;
+  font-size:clamp(2.4rem,1.6rem + 3.4vw,3.9rem);
+  line-height:1.03; letter-spacing:-.01em;
+  text-wrap:balance; max-width:19ch;
+}
+
+.texto{ max-width:var(--col); margin-top:1.05rem; color:var(--creme) }
+.texto-centro{ margin-inline:auto; text-align:center }
+.texto-pe{
+  max-width:var(--col); margin-top:1.4rem;
+  font-size:.88rem; line-height:1.6; color:var(--creme-mid);
+  border-left:2px solid var(--linha); padding-left:.95rem;
+}
+.dado{ font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1 }
+
+.secao{ padding-block:clamp(3.4rem,7.5vw,6.5rem) }
+.secao-filete{ border-top:1px solid var(--linha-fina) }
+
+.cabeca-secao{ margin-bottom:clamp(2rem,4vw,3.2rem) }
+
+/* duas colunas que trocam de lado */
+.dupla{
+  display:grid; gap:clamp(2.2rem,5vw,4.5rem);
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:center;
+}
+.dupla-invertida .col-texto{ order:2 }
+.dupla-invertida .col-arte{ order:1 }
+@media (max-width:900px){
+  .dupla{ grid-template-columns:1fr }
+  .dupla-invertida .col-texto,
+  .dupla-invertida .col-arte{ order:initial }
+}
+
+/* ---------------- cabeçalho sem costura ----------------
+   Sem borda e sem barra opaca: o fundo do topo desvanece no fundo da
+   página, de modo que o conteúdo passa por baixo sem revelar nenhuma
+   linha. A única marca visível é a régua amarela de progresso. */
+.topo{
+  position:sticky; top:0; z-index:40;
+  background:linear-gradient(
+    to bottom,
+    var(--vinho) 0%,
+    var(--vinho) 62%,
+    rgba(63,12,15,.92) 80%,
+    rgba(63,12,15,0) 100%
+  );
+  padding-bottom:.9rem;
+}
+.topo-in{
+  display:flex; align-items:center; gap:1.2rem; min-height:68px;
+  max-width:var(--max); margin-inline:auto; padding-inline:var(--gutter);
+}
+.marca{ display:block; margin-right:auto; line-height:0 }
+.marca img{ height:30px; width:auto }
+@media (max-width:520px){ .marca img{ height:24px } }
+
+.menu{ display:flex; gap:1.6rem; list-style:none; padding:0 }
+.menu a{
+  font-weight:500; font-size:.82rem;
+  letter-spacing:.09em; text-transform:uppercase;
+  color:var(--creme-mid); text-decoration:none;
+  padding-block:.35rem; border-bottom:2px solid transparent;
+  transition:color .15s ease, border-color .15s ease;
+}
+.menu a:hover{ color:var(--creme); border-bottom-color:var(--amarelo) }
+@media (max-width:940px){ .menu{ display:none } }
+
+.btn{
+  display:inline-flex; align-items:center; gap:.55rem;
+  font-weight:700; font-size:.82rem;
+  letter-spacing:.1em; text-transform:uppercase; text-decoration:none;
+  padding:.78rem 1.4rem; border:2px solid var(--amarelo);
+  background:var(--amarelo); color:var(--vinho);
+  cursor:pointer; white-space:nowrap;
+  transition:transform .16s ease, background .16s ease, color .16s ease;
+}
+.btn:hover{ transform:translateY(-2px) }
+.btn-linha{ background:transparent; color:var(--amarelo) }
+.btn-linha:hover{ background:rgba(255,200,0,.12) }
+.btn-peq{ padding:.6rem 1.05rem; font-size:.76rem }
+.btn[disabled]{ opacity:.6; cursor:progress; transform:none }
+.icone{ width:1.1em; height:1.1em; flex:none }
+@media (max-width:620px){ .topo .btn{ display:none } }
+
+.progresso{
+  position:absolute; left:0; bottom:.55rem;
+  height:3px; background:var(--amarelo); width:0;
+}
+
+/* ---------------- hero ---------------- */
+.hero{ padding-block:clamp(2.2rem,6vw,4.5rem) clamp(3rem,7vw,5.5rem) }
+.hero-in{ max-width:820px; margin-inline:auto; text-align:center }
+
+.hero-logo{ margin:.4rem 0 1.6rem }
+.hero-logo img{ width:min(100%,620px); margin-inline:auto }
+
+.chamada{
+  font-family:var(--titulo); font-style:italic;
+  font-size:clamp(1.6rem,1.2rem + 1.7vw,2.3rem);
+  line-height:1.18; color:var(--amarelo-f);
+  max-width:24ch; margin-inline:auto;
+}
+.hero .texto{ margin-top:1.4rem }
+
+.acoes{ display:flex; flex-wrap:wrap; gap:.85rem; margin-top:2.3rem }
+.acoes-centro{ justify-content:center }
+.acoes-nota{
+  margin-top:1rem; font-size:.8rem; color:var(--creme-mid);
+  text-align:center;
+}
+
+/* ---------------- contagem regressiva ---------------- */
+.faixa-contagem{
+  border-block:1px solid var(--linha-fina);
+  padding-block:clamp(2.8rem,5.5vw,4.2rem);
+}
+.contagem-in{
+  display:grid; gap:clamp(1.8rem,4vw,3.5rem);
+  grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  align-items:center;
+}
+@media (max-width:900px){ .contagem-in{ grid-template-columns:1fr } }
+
+.relogio{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:.6rem; text-align:center;
+}
+.relogio > div{
+  border:1px solid var(--linha);
+  background:var(--vinho-alto);
+  padding:clamp(.85rem,2vw,1.35rem) .3rem;
+}
+.relogio .num{
+  display:block; font-size:clamp(1.8rem,1rem + 3.2vw,3.1rem);
+  line-height:1; font-weight:800; letter-spacing:-.03em; color:var(--amarelo);
+}
+.relogio .un{
+  display:block; margin-top:.55rem;
+  font-weight:600; font-size:.68rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--creme-mid);
+}
+.relogio.chegou{ grid-template-columns:1fr }
+.relogio.chegou > div{ padding:1.5rem }
+
+/* ---------------- cartaz de procurado ---------------- */
+.procurado{
+  max-width:360px; margin-inline:auto;
+  background:var(--creme); color:var(--vinho);
+  padding:1.6rem 1.5rem 1.2rem;
+  border:1px solid rgba(0,0,0,.2);
+  box-shadow:12px 12px 0 rgba(0,0,0,.22);
+  transform:rotate(-1.6deg);
+}
+@media (max-width:900px){ .procurado{ transform:none } }
+
+.procurado-topo{
+  font-weight:600; font-size:.68rem;
+  letter-spacing:.26em; text-transform:uppercase; text-align:center;
+  padding-bottom:.6rem; border-bottom:2px solid var(--vinho);
+}
+.procurado-titulo{
+  font-weight:800; text-transform:uppercase;
+  font-size:clamp(2.3rem,1.9rem + 2vw,3rem); line-height:1;
+  letter-spacing:-.03em; text-align:center; margin:.8rem 0 .9rem;
+}
+.procurado-foto{
+  border:3px solid var(--vinho); padding:.8rem;
+  background:rgba(63,12,15,.06); color:var(--vinho);
+}
+.procurado-foto svg{ width:100%; height:auto; display:block }
+.procurado-nome{
+  font-weight:700; font-size:.95rem;
+  letter-spacing:.13em; text-transform:uppercase;
+  text-align:center; margin-top:.95rem;
+}
+.procurado-pe{
+  font-family:var(--maquina); font-size:.66rem; line-height:1.5;
+  text-align:center; margin-top:.5rem; padding-top:.6rem;
+  border-top:1px solid rgba(63,12,15,.35);
+}
+
+/* ---------------- citação e atos ---------------- */
+.citacao{
+  border-left:3px solid var(--amarelo);
+  padding:.3rem 0 .3rem 1.6rem;
+}
+.citacao p{
+  font-family:var(--titulo); font-style:italic;
+  font-size:clamp(1.5rem,1.15rem + 1.3vw,2.1rem);
+  line-height:1.26; color:var(--creme);
+}
+.citacao cite{
+  display:block; margin-top:1.1rem; font-style:normal;
+  font-weight:600; font-size:.74rem;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--amarelo);
+}
+.atos{ list-style:none; padding:0; margin-top:2.4rem }
+.atos li{
+  display:flex; align-items:baseline; gap:1rem;
+  padding:.85rem 0; border-top:1px solid var(--linha-fina);
+  font-weight:600; font-size:.88rem;
+  letter-spacing:.14em; text-transform:uppercase;
+}
+.atos li:last-child{ border-bottom:1px solid var(--linha-fina) }
+.atos .dado{ color:var(--amarelo); font-size:.82rem; font-weight:700 }
+
+/* ---------------- seção clara ----------------
+   Branco com texto azul-noite. As variáveis são redefinidas no escopo
+   da seção; o bilhete amarelo usa valores fixos para não ser afetado. */
+.secao-clara{
+  background:#fff;
+  color:var(--noite);
+  --creme:#0a1024;
+  --creme-mid:rgba(10,16,36,.66);
+  --amarelo:#8e1c22;
+  --amarelo-f:#8e1c22;
+  --linha:rgba(10,16,36,.22);
+  --linha-fina:rgba(10,16,36,.12);
+}
+.secao-clara .titulo{ color:var(--noite) }
+.secao-clara strong{ color:#8e1c22 }
+
+/* ---------------- bilhete ---------------- */
+.bilhete{
+  display:grid; grid-template-columns:1fr auto;
+  max-width:460px; margin-inline:auto;
+  background:#ffc800; color:#3f0c0f;
+  box-shadow:14px 14px 0 rgba(10,16,36,.18);
+}
+.bilhete-corpo{ padding:1.7rem 1.6rem 1.4rem }
+.bilhete-topo{
+  font-weight:600; font-size:.66rem;
+  letter-spacing:.22em; text-transform:uppercase; padding-bottom:.8rem;
+  border-bottom:2px solid rgba(63,12,15,.3);
+}
+.bilhete-valor{
+  font-weight:800;
+  font-size:clamp(3rem,2.2rem + 4vw,4.4rem);
+  line-height:.95; letter-spacing:-.04em; text-transform:uppercase;
+  margin-top:.9rem;
+}
+.bilhete-sub{
+  font-weight:700; font-size:.92rem;
+  letter-spacing:.06em; text-transform:uppercase; margin-top:.25rem;
+}
+.bilhete-dados{
+  display:grid; grid-template-columns:repeat(3,auto);
+  gap:1.2rem; margin-top:1.5rem; padding-top:1rem;
+  border-top:1px dashed rgba(63,12,15,.45);
+}
+.bilhete-dados dt{
+  font-weight:600; font-size:.62rem;
+  letter-spacing:.18em; text-transform:uppercase; opacity:.75;
+}
+.bilhete-dados dd{ margin:.25rem 0 0; font-size:.82rem; font-weight:700 }
+
+.bilhete-canhoto{
+  border-left:3px dashed #3f0c0f;
+  padding:1.7rem .95rem;
+  display:flex; flex-direction:column; justify-content:space-between;
+  align-items:center; gap:1.5rem;
+}
+.canhoto-topo,.canhoto-data{
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-weight:700; font-size:.7rem;
+  letter-spacing:.26em; text-transform:uppercase;
+}
+.canhoto-data{ letter-spacing:.14em }
+
+.lista-alimentos{
+  list-style:none; padding:0; margin-top:1.6rem;
+  display:flex; flex-wrap:wrap; gap:.5rem;
+}
+.lista-alimentos li{
+  font-weight:500; font-size:.78rem;
+  letter-spacing:.07em; text-transform:uppercase;
+  border:1px solid var(--linha); padding:.4rem .85rem; color:inherit;
+}
+
+/* ---------------- onde ---------------- */
+.endereco{
+  margin-top:1.3rem; font-size:1.15rem; line-height:1.5; color:var(--creme);
+}
+#onde .btn{ margin-top:1.6rem }
+
+.cartao-social{
+  border:1px solid var(--linha);
+  background:var(--vinho-alto);
+  padding:clamp(1.4rem,3vw,2rem);
+  max-width:420px; margin-inline:auto;
+}
+.cartao-social-topo{
+  font-weight:700; font-size:.7rem;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--amarelo);
+  padding-bottom:1rem; border-bottom:1px solid var(--linha-fina);
+}
+.social{
+  display:block; text-decoration:none; color:var(--creme);
+  padding:1.05rem 0; border-bottom:1px solid var(--linha-fina);
+}
+.social:hover .social-arroba{ color:var(--amarelo) }
+.social-arroba{
+  display:block; font-weight:700;
+  font-size:1.15rem; letter-spacing:-.02em; transition:color .15s ease;
+}
+.social-rotulo{
+  display:block; margin-top:.15rem;
+  font-weight:500; font-size:.72rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--creme-mid);
+}
+.cartao-social-pe{
+  font-size:.84rem; line-height:1.55;
+  color:var(--creme-mid); margin-top:1.1rem;
+}
+
+/* ---------------- informações ---------------- */
+.info-grade{
+  display:grid; gap:1px;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  background:var(--linha-fina);
+  border:1px solid var(--linha-fina);
+}
+.info-grade > div{ background:var(--vinho); padding:1.3rem 1.4rem }
+.info-grade dt{
+  font-weight:700; font-size:.68rem;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--amarelo); margin-bottom:.55rem;
+}
+.info-grade dd{ margin:0; font-size:.88rem; line-height:1.55 }
+
+.nota{
+  margin-top:1.6rem; max-width:var(--col);
+  font-size:.86rem; color:var(--creme-mid);
+}
+
+/* ---------------- rodapé ---------------- */
+.rodape{
+  background:var(--noite);
+  color:#fff;
+  padding-block:clamp(2.6rem,5vw,3.6rem);
+}
+.rodape-in{
+  display:flex; flex-wrap:wrap; gap:2.2rem 3rem;
+  align-items:flex-start; justify-content:space-between;
+}
+
+.rodape-logos{ display:flex; align-items:center; gap:1.25rem }
+.rodape-logo{ height:36px; width:auto }
+.rodape-risco{ width:1px; height:34px; background:rgba(255,255,255,.3); flex:none }
+.rodape-recarga{
+  font-weight:800; font-size:1.02rem; line-height:1.04; letter-spacing:-.02em;
+}
+.rodape-data{ margin-top:1.5rem; font-size:.92rem; color:#fff }
+.rodape-rua{ margin-top:.2rem; font-size:.92rem; color:rgba(255,255,255,.52) }
+
+.rodape-dir{
+  text-align:right; display:flex; flex-direction:column; gap:.45rem;
+  margin-left:auto;
+}
+.rodape-ministerio{ font-weight:700; font-size:.95rem; margin-bottom:.2rem }
+.rodape-dir a{
+  color:#fff; font-size:.9rem;
+  text-decoration:underline; text-underline-offset:3px;
+  text-decoration-thickness:1px;
+}
+.rodape-dir a:hover{ color:var(--amarelo) }
+.rodape-credito{
+  margin-top:1.1rem; font-size:.76rem; color:rgba(255,255,255,.5);
+}
+.rodape-credito a{ font-size:inherit; color:rgba(255,255,255,.72) }
+
+@media (max-width:720px){
+  .rodape-dir{ text-align:left; margin-left:0 }
+}

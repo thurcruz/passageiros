@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Passageiros — Teatro Recarga</title>
+<meta name="description" content="PASSAGEIROS — espetáculo teatral do Teatro Recarga. 07 de novembro de 2026, na Igreja Batista Central de Campo Grande. A entrada é 1 kg de alimento não perecível.">
+<meta name="theme-color" content="#3f0c0f">
+
+<link rel="icon" href="img/PASSAGEIROS_FAV_ICON.png" type="image/png">
+<link rel="apple-touch-icon" href="img/PASSAGEIROS_FAV_ICON.png">
+
+<meta property="og:title" content="Passageiros — Teatro Recarga">
+<meta property="og:description" content="Uma viagem comum. Um passageiro a mais. 07.11.2026 — entrada: 1 kg de alimento não perecível.">
+<meta property="og:image" content="img/PASSAGEIROS_LOGOTIPO.png">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Courier+Prime:wght@400&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="topo-in">
+    <a class="marca" href="#topo" aria-label="Passageiros — início">
+      <img src="img/PASSAGEIROS_LOGO_MINIZADA.png" alt="Passageiros" width="1183" height="237">
+    </a>
+    <nav aria-label="Seções">
+      <ul class="menu">
+        <li><a href="#historia">A história</a></li>
+        <li><a href="#ingresso">O ingresso</a></li>
+        <li><a href="#quando">Quando</a></li>
+        <li><a href="#onde">Onde</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-peq" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Passageiros%20%E2%80%94%20Teatro%20Recarga&dates=20261107/20261108&details=Espet%C3%A1culo%20teatral%20do%20Teatro%20Recarga.%20Entrada%3A%201%20kg%20de%20alimento%20n%C3%A3o%20perec%C3%ADvel.&location=Igreja%20Batista%20Central%20de%20Campo%20Grande%2C%20Rua%20Uni%C3%A3o%20da%20Vit%C3%B3ria%2C%20564" target="_blank" rel="noopener">Marcar na agenda</a>
+  </div>
+  <div class="progresso" id="progresso" aria-hidden="true"></div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="topo">
+    <div class="wrap hero-in">
+      <p class="olho olho-centro">Teatro Recarga apresenta</p>
+
+      <h1 class="hero-logo">
+        <img src="img/PASSAGEIROS_LOGOTIPO.png" alt="Passageiros" width="1024" height="256">
+      </h1>
+
+      <p class="chamada">Ninguém desce do mesmo jeito que entrou.</p>
+
+      <p class="texto texto-centro">
+        Uma viagem de trem como outra qualquer: gente com pressa, gente sozinha, gente
+        carregando mais coisa por dentro do que na mala. Até o momento em que um
+        passageiro a mais sobe a bordo — e a viagem deixa de ser sobre o destino.
+      </p>
+
+      <div class="acoes acoes-centro">
+        <a class="btn"
+           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Passageiros%20%E2%80%94%20Teatro%20Recarga&dates=20261107/20261108&details=Espet%C3%A1culo%20teatral%20do%20Teatro%20Recarga.%20Entrada%3A%201%20kg%20de%20alimento%20n%C3%A3o%20perec%C3%ADvel.&location=Igreja%20Batista%20Central%20de%20Campo%20Grande%2C%20Rua%20Uni%C3%A3o%20da%20Vit%C3%B3ria%2C%20564"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="icone">
+            <rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Marcar na agenda
+        </a>
+        <button class="btn btn-linha" type="button" id="compartilhar">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="icone">
+            <rect x="6" y="2" width="12" height="20" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="11" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span id="compartilhar-texto">Imagem para stories</span>
+        </button>
+      </div>
+      <p class="acoes-nota" id="compartilhar-nota">Gera uma arte 1080×1920 para o story ou o status.</p>
+    </div>
+  </section>
+
+  <!-- ===================== CONTAGEM REGRESSIVA ===================== -->
+  <section class="faixa-contagem" id="quando" aria-labelledby="t-quando">
+    <div class="wrap contagem-in">
+      <div class="contagem-rotulo">
+        <p class="olho">Embarque</p>
+        <h2 class="titulo" id="t-quando">07 de novembro<br>de 2026</h2>
+        <p class="texto">Sessão única, num sábado. As portas fecham no horário — depois disso, o trem já saiu.</p>
+      </div>
+      <div class="relogio" id="relogio">
+        <div><span class="num dado" data-rel="dias">—</span><span class="un">dias</span></div>
+        <div><span class="num dado" data-rel="horas">—</span><span class="un">horas</span></div>
+        <div><span class="num dado" data-rel="min">—</span><span class="un">min</span></div>
+        <div><span class="num dado" data-rel="seg">—</span><span class="un">seg</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== O CARTAZ ===================== -->
+  <section class="secao" id="cartaz">
+    <div class="wrap dupla">
+
+      <div class="col-arte">
+        <figure class="procurado">
+          <p class="procurado-topo">Aviso à população</p>
+          <p class="procurado-titulo">Procura-se</p>
+          <div class="procurado-foto" aria-hidden="true">
+            <svg viewBox="0 0 200 190" role="presentation">
+              <g fill="none" stroke="currentColor" stroke-width="5">
+                <path d="M100 118 c-30 0 -52 20 -58 46 h116 c-6 -26 -28 -46 -58 -46z"></path>
+                <circle cx="100" cy="78" r="34"></circle>
+                <path d="M50 56 h100"></path>
+                <path d="M62 56 c0 -17 17 -27 38 -27 s38 10 38 27"></path>
+              </g>
+              <rect x="64" y="72" width="72" height="13" rx="2" fill="currentColor"></rect>
+            </svg>
+          </div>
+          <p class="procurado-nome">Identidade desconhecida</p>
+          <p class="procurado-pe">Considerado perigoso · não aborde · avise a autoridade mais próxima</p>
+        </figure>
+      </div>
+
+      <div class="col-texto">
+        <p class="olho">Você escaneou o cartaz</p>
+        <h2 class="titulo">Se você chegou aqui por um papel pregado numa parede</h2>
+        <p class="texto">
+          então você já viu o rosto. O que o cartaz não conta é que ele comprou passagem
+          para o mesmo trem que todo mundo. Mesmo vagão, mesmo horário, mesma viagem.
+        </p>
+        <p class="texto">
+          Ele não é o único a bordo carregando alguma coisa. É só o único cujo cartaz
+          está na parede.
+        </p>
+        <p class="texto-pe">
+          Guarde este endereço: é aqui que ficam a data, o local e o que você precisa
+          levar para entrar.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== A HISTÓRIA ===================== -->
+  <section class="secao secao-filete" id="historia">
+    <div class="wrap dupla dupla-invertida">
+
+      <div class="col-texto">
+        <p class="olho">A história</p>
+        <h2 class="titulo">Ela passou a vida achando que nunca teve sorte</h2>
+        <p class="texto">
+          Marissa tem um caderninho e uma pergunta que ninguém em casa parou para ouvir.
+          O irmão gêmeo tem prêmios na parede, três faculdades aprovadas e um campeonato
+          nacional pela frente. Ela tem a passagem ao lado dele — como acompanhante.
+        </p>
+        <p class="texto">
+          Numa manhã comum, numa lanchonete de estação, Marissa repara em um homem que
+          mais ninguém ali parece enxergar. Conversa, escuta, paga um lanche. E ouve dele
+          uma frase estranha antes de embarcar: <em>a sua sorte está prestes a mudar.</em>
+        </p>
+        <p class="texto">
+          Horas depois, aquele vagão não é mais só um vagão. São sete pessoas que nunca se
+          viram antes, obrigadas a dividir o mesmo medo — e a descobrir, uma de cada vez,
+          o que cada uma estava tentando esconder.
+        </p>
+        <p class="texto">
+          <strong>Passageiros</strong> é sobre propósito. Sobre a distância entre a vida
+          que a gente inveja e a vida que já estava nas nossas mãos. E sobre o que
+          acontece quando alguém, enfim, é visto.
+        </p>
+      </div>
+
+      <div class="col-arte">
+        <blockquote class="citacao">
+          <p>“Isso tudo que o seu irmão conseguiu... e se não for sorte? Já pensou nisso?”</p>
+          <cite>Ato 1 — Embarque</cite>
+        </blockquote>
+        <ol class="atos">
+          <li><span class="dado">01</span> Embarque</li>
+          <li><span class="dado">02</span> Viagem</li>
+          <li><span class="dado">03</span> Destino</li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== O INGRESSO (seção clara) ===================== -->
+  <section class="secao secao-clara" id="ingresso">
+    <div class="wrap dupla">
+
+      <div class="col-arte">
+        <div class="bilhete">
+          <div class="bilhete-corpo">
+            <p class="bilhete-topo">Passageiros · bilhete de embarque</p>
+            <p class="bilhete-valor">1 kg</p>
+            <p class="bilhete-sub">de alimento não perecível</p>
+            <dl class="bilhete-dados">
+              <div><dt>Data</dt><dd class="dado">07.11.2026</dd></div>
+              <div><dt>Vagão</dt><dd class="dado">ÚNICO</dd></div>
+              <div><dt>Poltrona</dt><dd class="dado">LIVRE</dd></div>
+            </dl>
+          </div>
+          <div class="bilhete-canhoto">
+            <p class="canhoto-topo">Admite 1</p>
+            <p class="dado canhoto-data">07·11·26</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-texto">
+        <p class="olho">O ingresso</p>
+        <h2 class="titulo">A entrada não se compra</h2>
+        <p class="texto">
+          <strong>Passageiros</strong> é um espetáculo missionário: não há bilheteria, nem
+          meia, nem inteira. Cada pessoa entra com <strong>1 kg de alimento não
+          perecível</strong>, entregue na porta no dia da sessão.
+        </p>
+        <ul class="lista-alimentos">
+          <li>Arroz</li><li>Feijão</li><li>Macarrão</li><li>Óleo</li><li>Açúcar</li>
+          <li>Café</li><li>Leite em pó</li><li>Farinha</li><li>Sal</li><li>Enlatados</li>
+        </ul>
+        <p class="texto">
+          Tudo o que for arrecadado vira cesta e vai para famílias atendidas pelo trabalho
+          missionário. Nada fica com a produção.
+        </p>
+        <p class="texto-pe">
+          Confira a validade antes de trazer: alimento vencido não entra na cesta — e a
+          gente prefere que entre.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== ONDE ===================== -->
+  <section class="secao" id="onde">
+    <div class="wrap dupla dupla-invertida">
+
+      <div class="col-texto">
+        <p class="olho">Onde</p>
+        <h2 class="titulo">Igreja Batista Central de Campo Grande</h2>
+        <p class="endereco">
+          Rua União da Vitória, 564<br>
+          Campo Grande
+        </p>
+        <a class="btn"
+           href="https://www.google.com/maps/search/?api=1&query=Igreja%20Batista%20Central%20de%20Campo%20Grande%2C%20Rua%20Uni%C3%A3o%20da%20Vit%C3%B3ria%2C%20564"
+           target="_blank" rel="noopener">Abrir no mapa</a>
+        <p class="texto-pe">
+          Chegue com antecedência: as portas fecham no horário da sessão e não há entrada
+          depois que o trem parte.
+        </p>
+      </div>
+
+      <div class="col-arte">
+        <div class="cartao-social">
+          <p class="cartao-social-topo">Siga a viagem</p>
+          <a class="social" href="https://instagram.com/recargaoficial" target="_blank" rel="noopener">
+            <span class="social-arroba">@recargaoficial</span>
+            <span class="social-rotulo">Teatro Recarga</span>
+          </a>
+          <a class="social" href="https://instagram.com/recargacrtv" target="_blank" rel="noopener">
+            <span class="social-arroba">@recargacrtv</span>
+            <span class="social-rotulo">Recarga Criativa</span>
+          </a>
+          <p class="cartao-social-pe">
+            Bastidores, ensaios e o horário da sessão assim que for confirmado.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== INFORMAÇÕES ===================== -->
+  <section class="secao secao-filete" id="info">
+    <div class="wrap">
+      <div class="cabeca-secao">
+        <p class="olho">Informações de viagem</p>
+        <h2 class="titulo">Antes de embarcar</h2>
+      </div>
+
+      <dl class="info-grade">
+        <div><dt>Data</dt><dd class="dado">07 de novembro de 2026, sábado</dd></div>
+        <div><dt>Horário</dt><dd class="dado">a confirmar</dd></div>
+        <div><dt>Local</dt><dd class="dado">Igreja Batista Central de Campo Grande · Rua União da Vitória, 564</dd></div>
+        <div><dt>Duração</dt><dd class="dado">3 atos, com intervalo</dd></div>
+        <div><dt>Entrada</dt><dd class="dado">1 kg de alimento não perecível</dd></div>
+        <div><dt>Classificação</dt><dd class="dado">12 anos</dd></div>
+        <div><dt>Aviso de cena</dt><dd class="dado">arma cênica, disparo sonoro e temas sensíveis</dd></div>
+        <div><dt>Realização</dt><dd class="dado">Teatro Recarga</dd></div>
+      </dl>
+
+      <p class="nota">
+        O horário é publicado nesta página assim que confirmado. Volte aqui — ou escaneie
+        o cartaz de novo.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="wrap rodape-in">
+
+    <div class="rodape-esq">
+      <div class="rodape-logos">
+        <img class="rodape-logo" src="img/PASSAGEIROS_LOGOTIPO.png" alt="Passageiros" width="1024" height="256">
+        <span class="rodape-risco" aria-hidden="true"></span>
+        <span class="rodape-recarga">Teatro<br>Recarga</span>
+      </div>
+      <p class="rodape-data">07 de novembro de 2026 · Igreja Batista Central de Campo Grande</p>
+      <p class="rodape-rua">Rua União da Vitória, 564</p>
+    </div>
+
+    <div class="rodape-dir">
+      <p class="rodape-ministerio">Ministério Recarga</p>
+      <p><a href="https://www.google.com/maps/search/?api=1&query=Igreja%20Batista%20Central%20de%20Campo%20Grande%2C%20Rua%20Uni%C3%A3o%20da%20Vit%C3%B3ria%2C%20564" target="_blank" rel="noopener">Como chegar</a></p>
+      <p><a href="https://instagram.com/recargaoficial" target="_blank" rel="noopener">@recargaoficial</a></p>
+      <p><a href="https://instagram.com/recargacrtv" target="_blank" rel="noopener">@recargacrtv</a></p>
+      <p class="rodape-credito">Feito com muito código, café e Jesus por <a href="https://instagram.com/thurdacruz" target="_blank" rel="noopener">@thurdacruz</a></p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
