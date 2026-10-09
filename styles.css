@@ -1,24 +1,26 @@
-/* PASSAGEIROS — cartaz de viagem.
-   Fundo vinho (#3f0c0f) na maior parte, uma seção clara no meio e rodapé
-   azul-noite. Títulos em Instrument Serif, textos e números em Inter. */
+/* PASSAGEIROS, cartaz de viagem.
+   Fundo vinho na maior parte, uma seção clara no meio e rodapé azul-noite.
+   Títulos em Instrument Serif, textos e números em Inter.
+   Amarelo e azul extraídos do próprio logotipo: #fcca00 e #002d51. */
 
 :root{
   color-scheme: dark;
 
   --vinho:    #3f0c0f;   /* fundo principal */
   --vinho-alto:#4c1518;  /* mesmo vinho, um grau acima: cartões */
-  --amarelo:  #ffc800;   /* amarelo do logotipo */
-  --amarelo-f:#ffd84d;
+  --amarelo:  #fcca00;   /* amarelo do logotipo */
+  --noite:    #002d51;   /* azul do favicon */
+  --noite-esc:#00203c;   /* o mesmo azul, mais fundo: rodapé */
   --creme:    #f6ead6;
   --creme-mid:rgba(246,234,214,.68);
-  --linha:    rgba(255,200,0,.26);
+  --linha:    rgba(252,202,0,.26);
   --linha-fina:rgba(246,234,214,.14);
-
-  --noite:    #0a1024;   /* azul-noite do rodapé */
+  /* o recorte do canhoto, usado como divisória entre seções */
+  --picote: repeating-linear-gradient(90deg,
+              rgba(246,234,214,.34) 0 10px, transparent 10px 22px);
 
   --ui:      "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --titulo:  "Instrument Serif", Georgia, "Times New Roman", serif;
-  --maquina: "Courier Prime", "Courier New", monospace;
 
   --col: 56ch;
   --gutter: clamp(1.15rem, 5vw, 4.5rem);
@@ -50,8 +52,13 @@ img{ max-width:100%; height:auto; display:block }
 h1,h2,h3{ margin:0; font-weight:400 }
 p,dl,ul,ol,figure,blockquote{ margin:0 }
 a{ color:var(--amarelo) }
-strong{ font-weight:600; color:var(--amarelo-f) }
+strong{ font-weight:600; color:var(--amarelo) }
 em{ font-style:italic }
+
+.sr-so{
+  position:absolute; width:1px; height:1px; overflow:hidden;
+  clip-path:inset(50%); white-space:nowrap;
+}
 
 :where(a,button,[tabindex]):focus-visible{
   outline:2px solid var(--amarelo);
@@ -83,7 +90,9 @@ em{ font-style:italic }
 .olho::before{
   content:""; width:1.7rem; height:2px; background:var(--amarelo); flex:none;
 }
-.olho-centro{ justify-content:center }
+/* sem risco e em branco: a cartola do hero */
+.olho-limpo{ justify-content:center; color:#fff }
+.olho-limpo::before{ display:none }
 
 .titulo{
   font-family:var(--titulo); font-weight:400;
@@ -102,7 +111,11 @@ em{ font-style:italic }
 .dado{ font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1 }
 
 .secao{ padding-block:clamp(3.4rem,7.5vw,6.5rem) }
-.secao-filete{ border-top:1px solid var(--linha-fina) }
+.secao-filete{ position:relative }
+.secao-filete::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--picote);
+}
 
 .cabeca-secao{ margin-bottom:clamp(2rem,4vw,3.2rem) }
 
@@ -114,6 +127,9 @@ em{ font-style:italic }
 }
 .dupla-invertida .col-texto{ order:2 }
 .dupla-invertida .col-arte{ order:1 }
+/* título de um lado, corpo do outro, alinhados pelo topo */
+.dupla-topo{ align-items:start }
+.texto-primeiro{ margin-top:0 }
 @media (max-width:900px){
   .dupla{ grid-template-columns:1fr }
   .dupla-invertida .col-texto,
@@ -129,11 +145,12 @@ em{ font-style:italic }
   background:linear-gradient(
     to bottom,
     var(--vinho) 0%,
-    var(--vinho) 62%,
-    rgba(63,12,15,.92) 80%,
+    var(--vinho) 72%,
+    rgba(63,12,15,.97) 88%,
+    rgba(63,12,15,.5) 95%,
     rgba(63,12,15,0) 100%
   );
-  padding-bottom:.9rem;
+  padding-bottom:2rem;
 }
 .topo-in{
   display:flex; align-items:center; gap:1.2rem; min-height:68px;
@@ -152,7 +169,47 @@ em{ font-style:italic }
   transition:color .15s ease, border-color .15s ease;
 }
 .menu a:hover{ color:var(--creme); border-bottom-color:var(--amarelo) }
-@media (max-width:940px){ .menu{ display:none } }
+.menu-cta{ display:none }
+
+/* ---- sanfona do celular ---- */
+.menu-botao{
+  display:none; position:relative; flex:none;
+  width:42px; height:36px; padding:0;
+  background:none; border:1px solid var(--linha); border-radius:4px;
+  cursor:pointer;
+}
+.menu-risco{
+  position:absolute; left:11px; width:18px; height:2px;
+  background:var(--amarelo);
+  transition:transform .22s ease, top .22s ease;
+}
+.menu-risco:first-of-type{ top:13px }
+.menu-risco:last-of-type{ top:21px }
+.topo.menu-aberto .menu-risco:first-of-type{ top:17px; transform:rotate(45deg) }
+.topo.menu-aberto .menu-risco:last-of-type{ top:17px; transform:rotate(-45deg) }
+
+@media (max-width:940px){
+  .menu-botao{ display:block }
+  .menu{
+    display:none; flex-direction:column; gap:0;
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--vinho);
+    padding:.2rem var(--gutter) 1.1rem;
+    box-shadow:0 22px 34px rgba(0,0,0,.4);
+  }
+  .topo.menu-aberto .menu{ display:flex }
+  .menu li{ border-top:1px solid var(--linha-fina) }
+  .menu a{
+    display:block; padding:1rem 0; font-size:.88rem;
+    border-bottom:none; color:var(--creme);
+  }
+  .menu-cta a{
+    margin-top:.9rem; text-align:center;
+    background:var(--amarelo); color:var(--vinho);
+    font-weight:700; border-radius:3px;
+  }
+  .menu-cta{ border-top:none }
+}
 
 .btn{
   display:inline-flex; align-items:center; gap:.55rem;
@@ -164,19 +221,67 @@ em{ font-style:italic }
   transition:transform .16s ease, background .16s ease, color .16s ease;
 }
 .btn:hover{ transform:translateY(-2px) }
-.btn-linha{ background:transparent; color:var(--amarelo) }
-.btn-linha:hover{ background:rgba(255,200,0,.12) }
 .btn-peq{ padding:.6rem 1.05rem; font-size:.76rem }
-.btn[disabled]{ opacity:.6; cursor:progress; transform:none }
 .icone{ width:1.1em; height:1.1em; flex:none }
-@media (max-width:620px){ .topo .btn{ display:none } }
+@media (max-width:620px){
+  .topo > .topo-in > .btn{ display:none }
+  .menu-cta{ display:block }
+}
 
+/* A régua de progresso É a composição: os vagões formam a linha e a
+   locomotiva puxa na ponta. Enquanto a página rola, a composição
+   saltita, como roda de trem batendo no dormente. */
 .progresso{
-  position:absolute; left:0; bottom:.55rem;
-  height:3px; background:var(--amarelo); width:0;
+  position:absolute; left:0; bottom:.85rem; z-index:2;
+  height:16px; width:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 20'%3E%3Cg fill='%23fcca00'%3E%3Crect x='1' y='3' width='21' height='11' rx='2'/%3E%3Crect x='22' y='8' width='4' height='2'/%3E%3Ccircle cx='6' cy='16' r='2.2'/%3E%3Ccircle cx='17' cy='16' r='2.2'/%3E%3C/g%3E%3Cg fill='%233f0c0f'%3E%3Crect x='4' y='5.4' width='4' height='4' rx='.6'/%3E%3Crect x='9.5' y='5.4' width='4' height='4' rx='.6'/%3E%3Crect x='15' y='5.4' width='4' height='4' rx='.6'/%3E%3C/g%3E%3C/svg%3E") repeat-x right bottom/auto 16px;
+}
+.loco{
+  position:absolute; right:-5px; bottom:0;
+  width:27px; height:16px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 20'%3E%3Cg fill='%23fcca00'%3E%3Crect x='4' y='3' width='10' height='11' rx='1.5'/%3E%3Crect x='14' y='6' width='14' height='8' rx='1.5'/%3E%3Crect x='25' y='1.5' width='4.5' height='5' rx='1'/%3E%3Crect x='2' y='14' width='29' height='2'/%3E%3Ccircle cx='9' cy='17' r='2.4'/%3E%3Ccircle cx='22' cy='17' r='2.4'/%3E%3C/g%3E%3Crect x='6' y='5' width='5' height='4' rx='.6' fill='%233f0c0f'/%3E%3C/svg%3E") no-repeat right bottom/contain;
+}
+/* fumacinha só enquanto a página rola */
+.loco::after{
+  content:""; position:absolute; right:5px; top:-4px;
+  width:5px; height:5px; border-radius:50%;
+  background:var(--amarelo); opacity:0;
+}
+@keyframes fumaca{
+  from{ transform:translate(0,0) scale(.5); opacity:.8 }
+  to  { transform:translate(9px,-13px) scale(1.6); opacity:0 }
+}
+@keyframes saltitar{
+  0%, 49%   { transform:translateY(0) }
+  50%, 100% { transform:translateY(-2px) }
+}
+@media (prefers-reduced-motion:no-preference){
+  .progresso.andando .loco::after{ animation:fumaca .7s linear infinite }
+  .progresso.andando{ animation:saltitar .24s linear infinite }
 }
 
 /* ---------------- hero ---------------- */
+/* blocos que sobem ao entrar em cena (a classe é posta pelo script,
+   então sem JavaScript tudo continua visível) */
+.revela{
+  opacity:0; transform:translateY(16px);
+  transition:opacity .75s ease, transform .75s cubic-bezier(.2,.8,.3,1);
+}
+.revela.visivel{ opacity:1; transform:none }
+@media (prefers-reduced-motion:reduce){
+  .revela{ opacity:1; transform:none; transition:none }
+}
+
+@keyframes entrar{ from{ opacity:0; transform:translateY(18px) } }
+@media (prefers-reduced-motion:no-preference){
+  .hero-in > *{ animation:entrar .85s cubic-bezier(.2,.8,.3,1) backwards }
+  .hero-in > *:nth-child(1){ animation-delay:.05s }
+  .hero-in > *:nth-child(2){ animation-delay:.15s }
+  .hero-in > *:nth-child(3){ animation-delay:.28s }
+  .hero-in > *:nth-child(4){ animation-delay:.38s }
+  .hero-in > *:nth-child(5){ animation-delay:.48s }
+}
+
 .hero{ padding-block:clamp(2.2rem,6vw,4.5rem) clamp(3rem,7vw,5.5rem) }
 .hero-in{ max-width:820px; margin-inline:auto; text-align:center }
 
@@ -186,23 +291,29 @@ em{ font-style:italic }
 .chamada{
   font-family:var(--titulo); font-style:italic;
   font-size:clamp(1.6rem,1.2rem + 1.7vw,2.3rem);
-  line-height:1.18; color:var(--amarelo-f);
+  line-height:1.18; color:var(--amarelo);
   max-width:24ch; margin-inline:auto;
 }
 .hero .texto{ margin-top:1.4rem }
 
 .acoes{ display:flex; flex-wrap:wrap; gap:.85rem; margin-top:2.3rem }
 .acoes-centro{ justify-content:center }
-.acoes-nota{
-  margin-top:1rem; font-size:.8rem; color:var(--creme-mid);
-  text-align:center;
-}
 
-/* ---------------- contagem regressiva ---------------- */
+/* ---------------- contagem regressiva ----------------
+   Placar de dobrar: cada número é uma ficha cortada ao meio. Quando
+   muda, a metade de cima tomba para a frente e a nova metade de baixo
+   sobe atrás dela, como o placar de um ginásio. */
 .faixa-contagem{
-  border-block:1px solid var(--linha-fina);
+  position:relative;
   padding-block:clamp(2.8rem,5.5vw,4.2rem);
 }
+.faixa-contagem::before,
+.faixa-contagem::after{
+  content:""; position:absolute; left:0; right:0; height:2px;
+  background:var(--picote);
+}
+.faixa-contagem::before{ top:0 }
+.faixa-contagem::after{ bottom:0 }
 .contagem-in{
   display:grid; gap:clamp(1.8rem,4vw,3.5rem);
   grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
@@ -212,60 +323,147 @@ em{ font-style:italic }
 
 .relogio{
   display:grid; grid-template-columns:repeat(4,1fr);
-  gap:.6rem; text-align:center;
+  gap:clamp(.45rem,1.3vw,.8rem);
 }
-.relogio > div{
-  border:1px solid var(--linha);
+
+.flip{
+  --ficha: clamp(74px,12.5vw,116px);
+  text-align:center;
+}
+.placar{
+  position:relative;
+  height:var(--ficha);
+  perspective:520px;
+  font-size:calc(var(--ficha) * .54);
+  font-weight:800;
+  letter-spacing:-.03em;
+  color:var(--amarelo);
+  font-variant-numeric:tabular-nums;
+  filter:drop-shadow(0 6px 10px rgba(0,0,0,.3));
+}
+/* vinco do meio */
+.placar::after{
+  content:""; position:absolute; z-index:6;
+  top:calc(50% - 1px); left:0; width:100%; height:2px;
+  background:rgba(14,3,4,.85);
+}
+
+.meia,
+.folha .face{
+  position:absolute; left:0; width:100%;
+  overflow:hidden;
   background:var(--vinho-alto);
-  padding:clamp(.85rem,2vw,1.35rem) .3rem;
+  border:1px solid var(--linha);
 }
-.relogio .num{
-  display:block; font-size:clamp(1.8rem,1rem + 3.2vw,3.1rem);
-  line-height:1; font-weight:800; letter-spacing:-.03em; color:var(--amarelo);
+.meia span,
+.folha .face span{
+  position:absolute; left:0; width:100%;
+  height:var(--ficha); line-height:var(--ficha);
+  text-align:center;
 }
-.relogio .un{
-  display:block; margin-top:.55rem;
+
+.meia{ height:50% }
+.meia.topo{ top:0; border-bottom:none; border-radius:5px 5px 0 0 }
+.meia.topo span{ top:0 }
+.meia.base{ top:50%; border-top:none; border-radius:0 0 5px 5px }
+.meia.base span{ bottom:0 }
+
+.folha{
+  position:absolute; left:0; width:100%; height:50%;
+  backface-visibility:hidden;
+  transform-style:preserve-3d;
+  z-index:5;
+}
+.folha .face{ top:0; height:100% }
+/* a aba de baixo levanta na direção de quem olha e sai de cena,
+   descobrindo o número novo; só depois a aba de cima assenta sobre o
+   número velho. O alto é sempre o último a mudar. */
+.folha.baixo{ top:50%; transform-origin:center top }
+.folha.baixo .face{ border-top:none; border-radius:0 0 5px 5px }
+.folha.baixo .face span{ bottom:0 }
+/* em repouso a aba de cima fica de perfil e o navegador ainda desenha
+   uma lasca de 1px da borda; esconder de vez evita essa linha clara */
+.folha.cima{
+  top:0; transform-origin:center bottom;
+  transform:rotateX(-90deg); visibility:hidden;
+}
+.folha.cima .face{ border-bottom:none; border-radius:5px 5px 0 0 }
+.folha.cima .face span{ top:0 }
+
+@keyframes levantar{
+  from{ transform:rotateX(0deg) }
+  to  { transform:rotateX(90deg) }
+}
+@keyframes assentar{
+  from{ transform:rotateX(-90deg); visibility:visible }
+  to  { transform:rotateX(0deg);   visibility:visible }
+}
+.flip.virando .folha.baixo{
+  animation:levantar .26s cubic-bezier(.36,0,.66,-.06) forwards;
+}
+.flip.virando .folha.cima{
+  animation:assentar .26s .26s cubic-bezier(.2,.9,.4,1) forwards;
+}
+
+.flip .un{
+  display:block; margin-top:.7rem;
   font-weight:600; font-size:.68rem;
   letter-spacing:.16em; text-transform:uppercase; color:var(--creme-mid);
 }
+
+@media (prefers-reduced-motion:reduce){
+  .flip.virando .folha.frente,
+  .flip.virando .folha.tras{ animation:none }
+}
+
+/* quando o dia chega */
 .relogio.chegou{ grid-template-columns:1fr }
-.relogio.chegou > div{ padding:1.5rem }
+.relogio.chegou .aviso{
+  border:1px solid var(--linha); background:var(--vinho-alto);
+  padding:1.6rem; text-align:center;
+}
+.relogio.chegou .aviso strong{
+  display:block; font-size:clamp(1.8rem,1rem + 3vw,3rem);
+  font-weight:800; letter-spacing:-.03em; color:var(--amarelo);
+}
+.relogio.chegou .aviso span{
+  display:block; margin-top:.5rem;
+  font-weight:600; font-size:.68rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--creme-mid);
+}
 
-/* ---------------- cartaz de procurado ---------------- */
-.procurado{
-  max-width:360px; margin-inline:auto;
-  background:var(--creme); color:var(--vinho);
-  padding:1.6rem 1.5rem 1.2rem;
-  border:1px solid rgba(0,0,0,.2);
-  box-shadow:12px 12px 0 rgba(0,0,0,.22);
-  transform:rotate(-1.6deg);
+/* ---------------- anúncio do condutor ----------------
+   Faixa de alto-falante de estação: o texto é digitado quando
+   entra em cena e o cursor fica piscando no fim. */
+.anuncio{
+  position:relative;
+  background:rgba(0,0,0,.16);
+  padding-block:clamp(1.2rem,2.5vw,1.7rem);
 }
-@media (max-width:900px){ .procurado{ transform:none } }
+.anuncio::before,
+.anuncio::after{
+  content:""; position:absolute; left:0; right:0; height:2px;
+  background:var(--picote);
+}
+.anuncio::before{ top:0 }
+.anuncio::after{ bottom:0 }
 
-.procurado-topo{
-  font-weight:600; font-size:.68rem;
-  letter-spacing:.26em; text-transform:uppercase; text-align:center;
-  padding-bottom:.6rem; border-bottom:2px solid var(--vinho);
+.anuncio-in{ display:flex; align-items:center; gap:1rem }
+.anuncio-icone{ color:var(--amarelo); width:1.5rem; flex:none }
+.anuncio-icone svg{ width:100%; height:auto; display:block }
+.anuncio-texto{
+  font-weight:600; font-size:clamp(.74rem,.66rem + .35vw,.92rem);
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--amarelo); line-height:1.6;
 }
-.procurado-titulo{
-  font-weight:800; text-transform:uppercase;
-  font-size:clamp(2.3rem,1.9rem + 2vw,3rem); line-height:1;
-  letter-spacing:-.03em; text-align:center; margin:.8rem 0 .9rem;
+.anuncio-cursor{
+  display:inline-block; width:.5em; height:1em;
+  vertical-align:-.1em; margin-left:.2em;
+  background:var(--amarelo);
 }
-.procurado-foto{
-  border:3px solid var(--vinho); padding:.8rem;
-  background:rgba(63,12,15,.06); color:var(--vinho);
-}
-.procurado-foto svg{ width:100%; height:auto; display:block }
-.procurado-nome{
-  font-weight:700; font-size:.95rem;
-  letter-spacing:.13em; text-transform:uppercase;
-  text-align:center; margin-top:.95rem;
-}
-.procurado-pe{
-  font-family:var(--maquina); font-size:.66rem; line-height:1.5;
-  text-align:center; margin-top:.5rem; padding-top:.6rem;
-  border-top:1px solid rgba(63,12,15,.35);
+@keyframes piscar{ 50%{ opacity:0 } }
+@media (prefers-reduced-motion:no-preference){
+  .anuncio-cursor{ animation:piscar 1.05s steps(1) infinite }
 }
 
 /* ---------------- citação e atos ---------------- */
@@ -277,6 +475,21 @@ em{ font-style:italic }
   font-family:var(--titulo); font-style:italic;
   font-size:clamp(1.5rem,1.15rem + 1.3vw,2.1rem);
   line-height:1.26; color:var(--creme);
+}
+.epigrafes{ display:grid; list-style:none; padding:0; margin:0 }
+/* a que sai some primeiro; a que entra só começa depois, para as duas
+   nunca aparecerem sobrepostas */
+.epigrafe{
+  grid-area:1 / 1;
+  opacity:0; transform:translateY(8px);
+  transition:opacity .45s ease, transform .45s cubic-bezier(.2,.8,.3,1);
+}
+.epigrafe.ativa{
+  opacity:1; transform:none;
+  transition-delay:.5s;
+}
+@media (prefers-reduced-motion:reduce){
+  .epigrafe{ transition:none }
 }
 .citacao cite{
   display:block; margin-top:1.1rem; font-style:normal;
@@ -299,24 +512,28 @@ em{ font-style:italic }
 .secao-clara{
   background:#fff;
   color:var(--noite);
-  --creme:#0a1024;
-  --creme-mid:rgba(10,16,36,.66);
+  --creme:#002d51;
+  --creme-mid:rgba(0,45,81,.66);
   --amarelo:#8e1c22;
-  --amarelo-f:#8e1c22;
-  --linha:rgba(10,16,36,.22);
-  --linha-fina:rgba(10,16,36,.12);
+  --linha:rgba(0,45,81,.22);
+  --linha-fina:rgba(0,45,81,.12);
 }
 .secao-clara .titulo{ color:var(--noite) }
-.secao-clara strong{ color:#8e1c22 }
 
 /* ---------------- bilhete ---------------- */
+/* o fundo amarelo mora nas duas metades, não no bilhete inteiro:
+   assim o rasgo deixa ver a página branca por baixo */
 .bilhete{
+  position:relative;
   display:grid; grid-template-columns:1fr auto;
   max-width:460px; margin-inline:auto;
-  background:#ffc800; color:#3f0c0f;
-  box-shadow:14px 14px 0 rgba(10,16,36,.18);
+  color:#3f0c0f;
 }
-.bilhete-corpo{ padding:1.7rem 1.6rem 1.4rem }
+.bilhete-corpo{
+  padding:1.7rem 1.6rem 1.4rem;
+  background:#fcca00;
+  box-shadow:0 14px 0 rgba(0,45,81,.16);
+}
 .bilhete-topo{
   font-weight:600; font-size:.66rem;
   letter-spacing:.22em; text-transform:uppercase; padding-bottom:.8rem;
@@ -348,6 +565,30 @@ em{ font-style:italic }
   padding:1.7rem .95rem;
   display:flex; flex-direction:column; justify-content:space-between;
   align-items:center; gap:1.5rem;
+  background:#fcca00;
+  box-shadow:14px 14px 0 rgba(0,45,81,.16);
+  transform-origin:0 100%;
+  transition:transform .7s cubic-bezier(.22,.9,.3,1),
+             box-shadow .7s ease;
+}
+/* o canhoto se destaca pelo picote quando o bilhete entra em cena,
+   e abre um pouco mais quando o ponteiro passa por cima */
+.bilhete.destacado .bilhete-canhoto{
+  transform:translateX(17px) rotate(5.5deg);
+  box-shadow:14px 14px 0 rgba(0,45,81,.16),
+             -9px 6px 18px rgba(0,45,81,.3);
+}
+.bilhete.destacado:hover .bilhete-canhoto{
+  transform:translateX(26px) rotate(8deg);
+  box-shadow:14px 14px 0 rgba(0,45,81,.16),
+             -12px 8px 24px rgba(0,45,81,.34);
+}
+@media (prefers-reduced-motion:reduce){
+  .bilhete-canhoto{ transition:none }
+  .bilhete.destacado .bilhete-canhoto,
+  .bilhete.destacado:hover .bilhete-canhoto{
+    transform:none; box-shadow:14px 14px 0 rgba(0,45,81,.16);
+  }
 }
 .canhoto-topo,.canhoto-data{
   writing-mode:vertical-rl; text-orientation:mixed;
@@ -356,14 +597,18 @@ em{ font-style:italic }
 }
 .canhoto-data{ letter-spacing:.14em }
 
+/* cada alimento numa pílula de borda arredondada */
 .lista-alimentos{
   list-style:none; padding:0; margin-top:1.6rem;
   display:flex; flex-wrap:wrap; gap:.5rem;
 }
 .lista-alimentos li{
-  font-weight:500; font-size:.78rem;
-  letter-spacing:.07em; text-transform:uppercase;
-  border:1px solid var(--linha); padding:.4rem .85rem; color:inherit;
+  font-weight:600; font-size:.76rem;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:inherit;
+  border:1px solid var(--linha);
+  border-radius:999px;
+  padding:.44rem 1rem;
 }
 
 /* ---------------- onde ---------------- */
@@ -424,7 +669,7 @@ em{ font-style:italic }
 
 /* ---------------- rodapé ---------------- */
 .rodape{
-  background:var(--noite);
+  background:var(--noite-esc);
   color:#fff;
   padding-block:clamp(2.6rem,5vw,3.6rem);
 }
@@ -433,12 +678,10 @@ em{ font-style:italic }
   align-items:flex-start; justify-content:space-between;
 }
 
-.rodape-logos{ display:flex; align-items:center; gap:1.25rem }
-.rodape-logo{ height:36px; width:auto }
-.rodape-risco{ width:1px; height:34px; background:rgba(255,255,255,.3); flex:none }
-.rodape-recarga{
-  font-weight:800; font-size:1.02rem; line-height:1.04; letter-spacing:-.02em;
-}
+.rodape-logos{ display:flex; align-items:center; gap:1.35rem }
+.rodape-recarga{ height:44px; width:auto }
+.rodape-logo{ height:34px; width:auto }
+.rodape-risco{ width:1px; height:40px; background:rgba(255,255,255,.3); flex:none }
 .rodape-data{ margin-top:1.5rem; font-size:.92rem; color:#fff }
 .rodape-rua{ margin-top:.2rem; font-size:.92rem; color:rgba(255,255,255,.52) }
 
