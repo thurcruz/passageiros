@@ -184,9 +184,8 @@
   }
 
   /* =============== 6. contagem regressiva =============== *
-     Horário ainda a confirmar; o relógio aponta para o começo do dia
-     em Brasília (UTC-3). Ajuste a linha abaixo quando a hora for definida. */
-  var EMBARQUE = new Date('2026-11-07T00:00:00-03:00').getTime();
+     Sessão às 19h30, horário de Campo Grande (UTC-4). */
+  var EMBARQUE = new Date('2026-11-07T19:30:00-04:00').getTime();
 
   var relogio = document.getElementById('relogio');
   if (!relogio) return;
